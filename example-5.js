@@ -72,7 +72,7 @@ for (let i = 0; i <= octaves; i++) {
     //  allNotes.push([k, octave, noteNames[note], midiNoteToFrequency(k)]);
     noteInfo.push({
       key: k,
-      oct: octave,
+      oct: octave -1,
       note: noteNames[note],
       freq: midiNoteToFrequency(k),
     });
