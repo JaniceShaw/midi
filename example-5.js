@@ -22,7 +22,7 @@ if (navigator.requestMIDIAccess) {
 }
 
 function success(midi) {
-  deviceMsg = "1- please select a device by pressing a key";
+  deviceMsg = "<span class='big'>1</span>- please select a device by pressing a key on the device.";
   displayDevice.innerHTML = deviceMsg;
 
   let inputs = midi.inputs.values();
@@ -63,46 +63,48 @@ function midiNoteToFrequency(key) {
 }
 
 // make array of all keys with octave and note name
-for(let i = 0; i <= octaves; i ++){
+for (let i = 0; i <= octaves; i++) {
   let octave = i;
   let startKey = i * 12;
   let note = 0;
 
-  for(let k = startKey; k<= startKey + 11 && k <= keys; k++){
-
-  //  allNotes.push([k, octave, noteNames[note], midiNoteToFrequency(k)]);
-   noteInfo.push({key:k,oct:octave,note:noteNames[note],freq:midiNoteToFrequency(k)})
-   note +=1;
+  for (let k = startKey; k <= startKey + 11 && k <= keys; k++) {
+    //  allNotes.push([k, octave, noteNames[note], midiNoteToFrequency(k)]);
+    noteInfo.push({
+      key: k,
+      oct: octave,
+      note: noteNames[note],
+      freq: midiNoteToFrequency(k),
+    });
+    note += 1;
   }
 }
 // console.log('object notes', noteInfo);
 
 const getSummary = (low, high) => {
-  const allNotes = noteInfo.slice(low.key, high.key+1);
-  console.log('allNotes', allNotes);
+  const allNotes = noteInfo.slice(low.key, high.key + 1);
+  // console.log("allNotes", allNotes);
 
   let summaryText = "<h3>Summary</h3>";
 
   // number of keys
   const totalKeys = allNotes.length;
-  summaryText +=`<p>Number of keys: ${totalKeys}</p>`;
- 
+  summaryText += `<p>Number of keys: ${totalKeys}</p>`;
+
   // number of octaves
   const totalOctaves = high.oct - low.oct;
   summaryText += `<p>Available octaves: ${totalOctaves}`;
 
-  summaryText += "<ul class='notes'>";
-  for(let i = 0; i < allNotes.length; i++){
-    if(allNotes[i].note.length>1){
+  summaryText += "<p>Play your keyboard to see notes played:</p><ul class='notes'>";
+  for (let i = 0; i < allNotes.length; i++) {
+    if (allNotes[i].note.length > 1) {
       summaryText += `<li class='sharp' id=${allNotes[i].key}>`;
-    }else{
+    } else {
       summaryText += `<li class=${allNotes[i].note} id=${allNotes[i].key}>`;
-
     }
-    summaryText += `${allNotes[i].note}</li>`
+    summaryText += `${allNotes[i].note}</li>`;
   }
   summaryText += "</ul>";
-
 
   displaySummary.innerHTML = summaryText;
 };
@@ -111,18 +113,16 @@ function onMIDIMessage(message) {
   // setUp key presses
   if (setUp) {
     if (message.data[0] === 144 && message.data[2] > 0) {
-
       // select device and display selected device name
       if (selectedDevice === undefined) {
         selectedDevice = message.currentTarget;
-        deviceMsg = `1- Device selected <b>${selectedDevice.manufacturer} ${selectedDevice.name}</b>`;
+        deviceMsg = `1- Device selected <b>${selectedDevice.manufacturer} - ${selectedDevice.name}</b>`;
         displayDevice.innerHTML = deviceMsg;
         // TODO: after device selected - make chosen device the only active device
 
         // 2 low key select
-        lowText = "2- Please press the <b>lowest</b> key on your keyboard";
+        lowText = "<span class='big'>2</span>- Please press the <b>lowest</b> key on your keyboard";
         displayLowKey.innerHTML = lowText;
-
       } else if (!lowKey) {
         //uses noteInfo array to get all note info
         lowKey = noteInfo[message.data[1]];
@@ -130,21 +130,36 @@ function onMIDIMessage(message) {
         displayLowKey.innerHTML = lowText;
 
         // 3 highest key select
-        highText = "3- Please press the <b>highest</b> key on your keyboard";
+        highText = "<span class='big'>3</span>- Please press the <b>highest</b> key on your keyboard";
         displayHighKey.innerHTML = highText;
-
       } else {
         highKey = noteInfo[message.data[1]];
         highText = `3- High key number ${highKey.key} - Octave:${highKey.oct} - Note:${highKey.note}  - Freq:${highKey.freq}`;
         displayHighKey.innerHTML = highText;
 
-        setUp = false;
         getSummary(lowKey, highKey);
+        setUp = false;
       }
-    }
-  }else{
-     // normal key presses after setup
      
+    }
+  } else {
+    //TODO: add error checking if key is outside of the low high set
+    // normal key presses after setup
+    let pressed;
+    let released;
 
+    // check to see what key was pressed and add sel class
+    if (message.data[0] === 144 && message.data[2] > 0) {
+      pressed = message.data[1];
+      let sel = document.getElementById(pressed);
+      sel.classList.add('sel');
+    }
+
+    // check key released and remove sel class
+    if (message.data[0] === 128 || message.data[2] === 0) {
+      released = message.data[1];
+      let deSel = document.getElementById(released);
+      deSel.classList.remove('sel');
+    }
   }
 }
