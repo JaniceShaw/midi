@@ -77,20 +77,31 @@ for(let i = 0; i <= octaves; i ++){
 }
 // console.log('object notes', noteInfo);
 
-const getSummary = (low, heigh) => {
-  const allNotes = noteInfo.slice(low,heigh);
+const getSummary = (low, high) => {
+  const allNotes = noteInfo.slice(low.key, high.key+1);
   console.log('allNotes', allNotes);
-  console.log('orig array', noteInfo);
 
   let summaryText = "<h3>Summary</h3>";
 
   // number of keys
-  const totalKeys = heigh.key - low.key + 1;
+  const totalKeys = allNotes.length;
   summaryText +=`<p>Number of keys: ${totalKeys}</p>`;
  
   // number of octaves
-  const totalOctaves = heigh.oct - low.oct;
+  const totalOctaves = high.oct - low.oct;
   summaryText += `<p>Available octaves: ${totalOctaves}`;
+
+  summaryText += "<ul class='notes'>";
+  for(let i = 0; i < allNotes.length; i++){
+    if(allNotes[i].note.length>1){
+      summaryText += `<li class='sharp' id=${allNotes[i].key}>`;
+    }else{
+      summaryText += `<li class=${allNotes[i].note} id=${allNotes[i].key}>`;
+
+    }
+    summaryText += `${allNotes[i].note}</li>`
+  }
+  summaryText += "</ul>";
 
 
   displaySummary.innerHTML = summaryText;
@@ -113,7 +124,7 @@ function onMIDIMessage(message) {
         displayLowKey.innerHTML = lowText;
 
       } else if (!lowKey) {
-        //uses array to get all note info
+        //uses noteInfo array to get all note info
         lowKey = noteInfo[message.data[1]];
         lowText = `2- Low Key number ${lowKey.key} - Octave:${lowKey.oct} - Note:${lowKey.note} - Freq:${lowKey.freq}`;
         displayLowKey.innerHTML = lowText;
@@ -132,7 +143,8 @@ function onMIDIMessage(message) {
       }
     }
   }else{
-     // normal key presses below
+     // normal key presses after setup
+     
 
   }
 }
