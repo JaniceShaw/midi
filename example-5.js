@@ -2,6 +2,7 @@ const displayDevice = document.querySelector(".selectedDevice");
 const displayLowKey = document.querySelector(".low");
 const displayHighKey = document.querySelector(".high");
 const displaySummary = document.querySelector(".summary");
+const displayNote = document.querySelector(".noteShow");
 
 let deviceMsg = "";
 let selectedDevice;
@@ -17,7 +18,7 @@ let setUp = true;
 if (navigator.requestMIDIAccess) {
   navigator.requestMIDIAccess().then(success, failure);
 } else {
-  deviceMsg = "browser dose not support midi";
+  deviceMsg = "Your browser dose not support midi";
   displayDevice.innerHTML = deviceMsg;
 }
 
@@ -40,22 +41,9 @@ function failure() {
 
 const keys = 127;
 const octaves = 10;
-const noteNames = [
-  "C",
-  "C#",
-  "D",
-  "D#",
-  "E",
-  "F",
-  "F#",
-  "G",
-  "G#",
-  "A",
-  "A#",
-  "B",
-];
-// const allNotes = []; // [0,0,"C", 8] [key, octave, noteName, frequency]
+const noteNames = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B",];
 const noteInfo = []; // [{key:0,oct:0,note:"C",freq:8},{}]
+const activeNotes = [];
 
 // 440 = the A above middle C (note 69)
 function midiNoteToFrequency(key) {
@@ -69,7 +57,6 @@ for (let i = 0; i <= octaves; i++) {
   let note = 0;
 
   for (let k = startKey; k <= startKey + 11 && k <= keys; k++) {
-    //  allNotes.push([k, octave, noteNames[note], midiNoteToFrequency(k)]);
     noteInfo.push({
       key: k,
       oct: octave -1,
@@ -83,7 +70,6 @@ for (let i = 0; i <= octaves; i++) {
 
 const getSummary = (low, high) => {
   const allNotes = noteInfo.slice(low.key, high.key + 1);
-  // console.log("allNotes", allNotes);
 
   let summaryText = "<h3>Summary</h3>";
 
@@ -143,6 +129,7 @@ function onMIDIMessage(message) {
      
     }
   } else {
+    if(message.data[0] !== 248 && message.data[0] !== 254){
     //TODO: add error checking if key is outside of the low high set
     // normal key presses after setup
     let pressed;
@@ -153,6 +140,9 @@ function onMIDIMessage(message) {
       pressed = message.data[1];
       let sel = document.getElementById(pressed);
       sel.classList.add('sel');
+      activeNotes.push(pressed);
+      activeNotes.sort();
+      console.log('Note: ', noteInfo[pressed]);
     }
 
     // check key released and remove sel class
@@ -160,6 +150,22 @@ function onMIDIMessage(message) {
       released = message.data[1];
       let deSel = document.getElementById(released);
       deSel.classList.remove('sel');
+      let position = activeNotes.indexOf(released);
+      if(position !== -1){
+        activeNotes.splice(position, 1);
+      }
     }
+    // console.log('active', activeNotes, message.data[0]);
+    let showNotes = "";
+    let thisNote;
+       for(let i = 0; i < activeNotes.length; i++){
+         thisNote = noteInfo[activeNotes[i]].note;
+         if(thisNote.length > 1){
+           thisNote = `${thisNote[0]}<sup>${thisNote[1]}</sup>`
+         }
+        showNotes += `<div>${thisNote}<sub>${noteInfo[activeNotes[i]].oct}</sub></div>`
+      }
+    displayNote.innerHTML = showNotes;
   }
+}
 }

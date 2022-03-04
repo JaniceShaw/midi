@@ -12,18 +12,31 @@
         .notes{margin: 0; padding:5px; border: solid 1px black; display: inline-block;}
         .notes li{display: inline-block; border:solid 1px black; margin:2px; padding:3px}
         .notes li.sharp {background-color: black; color: white; margin-top: 0}
-        .notes li.C {background-color: lightgreen; color: black; margin-top: 0}
+        .notes li.C {background-color: lightgoldenrodyellow; color: black; margin-top: 0}
         .notes li.sel {background-color: hotpink;}
+        div.noteShow{margin-top: 10px; text-align: center; position: relative;height:60px;box-sizing: border-box;}
+        div.noteShow div{
+            box-sizing: border-box;
+            position: relative;
+            display:inline-block;
+            width:60px; 
+            height: 60px;
+            overflow: hidden;
+        
+            border:solid 3px hotpink; 
+            margin: 5px;text-align:center; padding: 5px; border-radius: 10px; font-size: 27px; font-weight: bold;}
+        .noteShow sub{font-weight: normal; color: gray}
+        .noteShow sup{font-weight: normal; margin: 0;}
     </style>
 </head>
 <body>
     <h1>Example 5 - keyboard setup</h1>
     <p>Select device and set lowest and highest available notes, then play! 😀</p>
-    <!-- <button>Enable audio</button> -->
     <p class="selectedDevice"></p>
     <p class="low"></p>
     <p class="high"></p>
     <div class="summary"></div>
+    <div class="noteShow"></div>
 
     <script src="./example-5.js"></script>
 </body>
