@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midi - Example 7 - Midi drums setup</title>
+    <style>body{height: 100%; width: 100%; background-color:rgba(0, 0, 0, 0); font-family:Arial, Helvetica, sans-serif;}
+        .display{display: inline-block; margin-right: 20px;}
+        .colour{background-color: white; padding: 10px; font-size: 20px;display: inline-block;margin: 30px;}
+        .drums{border:solid 4px rgb(156, 206, 202); position: relative; height:180px; width: 220px; margin: 20px auto; border-radius: 20px; background-color: rgb(156, 206, 202);}
+        .drums div{
+            font-size: 10px;
+            color: grey;
+            text-align: center; 
+            line-height: 50px;
+             height: 50px; 
+             width: 50px; 
+             border-radius: 50%; 
+             border: solid 2px grey; 
+             background-color: beige;
+             position: absolute;
+            }
+        .drums .highHat {background-color: lightgoldenrodyellow; border-color: orange; top:18px}
+        .drums .snare {top:70px; left:22px}
+        .drums .bass {height: 80px; width: 80px; bottom:0; left: 65px;} 
+        .drums .tom1 {height: 45px; width: 45px; left:55px; top:30px}
+        .drums .tom2 {left:105px; top:30px}
+        .drums .floorTom {height: 55px; width: 55px; right: 20px; bottom:50px}
+        .drums .crash{background-color: lightgoldenrodyellow; border-color: orange; height: 60px; width: 60px; top:0; right:0}
+        .drums div.active{border-color: greenyellow; background-color: lightgreen;}   
+    </style>
+</head>
+<body>
+    <h1>Example 7 - Midi drums setup</h1>
+    <p>Set up for e-drums</p>
+    <div class="display"></div><button>Start</button>
+    <div class="drums">
+        <div class="highHat">high hat</div>
+        <div class="snare">snare</div>
+        <div class="bass">bass</div>
+        <div class="tom1">tom 1</div>
+        <div class="tom2">tom 2</div>
+        <div class="floorTom">floor tom</div>
+        <div class="crash">crash</div>
+    </div>
+
+    <script src="./example-7.js"></script>
+</body>
+</html>

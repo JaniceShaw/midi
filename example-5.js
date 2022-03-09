@@ -105,7 +105,6 @@ function onMIDIMessage(message) {
         deviceMsg = `1- Device selected <b>${selectedDevice.manufacturer} - ${selectedDevice.name}</b>`;
         displayDevice.innerHTML = deviceMsg;
         // TODO: after device selected - make chosen device the only active device
-
         // 2 low key select
         lowText = "<span class='big'>2</span>- Please press the <b>lowest</b> key on your keyboard";
         displayLowKey.innerHTML = lowText;
