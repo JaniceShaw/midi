@@ -9,6 +9,7 @@ const floorTomDrum = document.querySelector('.floorTom');
 const tom1Drum = document.querySelector('.tom1');
 const tom2Drum = document.querySelector('.tom2');
 const crashDrum = document.querySelector('.crash');
+const rideDrum = document.querySelector('.ride');
 // const footSwitch = document.querySelector('.footSwitch');
 
 
@@ -48,7 +49,8 @@ const drumSet = {
   crash: undefined, // optional - 5
   floorTom: undefined, //optional 6
   tom1: undefined, // optional - 7 
-  tom2: undefined, // optional - 8  
+  tom2: undefined, // optional - 8 
+  ride: undefined, // optional - 9 
 
   // set up button progress
   nextStep: function(){
@@ -98,10 +100,15 @@ const drumSet = {
         btn.disabled = true;
       break;
       case 9:
-        msg = `9- Finished setup`;
+        msg = `9- Please hit the ride`;
+        display.innerHTML = msg;
+        btn.disabled = true;
+      break;
+      case 10:
+        msg = `10- Finished setup`;
         display.innerHTML = msg;
         // btn.disabled = true;
-        console.log('case 9 on button');
+        console.log('case 10 on button');
       break;
     }
   },
@@ -138,7 +145,11 @@ const playDrum = (note)=>{
     break;
     case drumSet.tom2:
       console.log('tom2');
-      tom2Drum.classList.add('active');
+      tom2Drum.classList.add('active');fsd
+    break;
+    case drumSet.ride:
+      console.log('ride');
+      rideDrum.classList.add('active');
     break;
   }
 }
@@ -182,6 +193,10 @@ const StopPlayDrum = (note)=>{
     case drumSet.tom2:
       console.log('off tom2');
       tom2Drum.classList.remove('active');
+    break;
+    case drumSet.ride:
+      console.log('off ride');
+      rideDrum.classList.remove('active');
     break;
   }
 }
@@ -297,6 +312,21 @@ function onMIDIMessage(message) {
               msg = `Pad id <strong> ${padId}</strong> selected, click next to confirm`;
               display.innerHTML = msg;
               console.log('made it to set tom2');
+            }
+          break;
+          // tom 2
+          case 9:
+            if(padId === drumSet.snare || padId === drumSet.bass || padId === drumSet.highHat || padId === drumSet.highHatFoot || padId === drumSet.crash || padId === drumSet.floorTom || padId === drumSet.tom1 || padId === drumSet.tom2){
+              msg = `Drum pad already in use please hit a different pad.`;
+              display.innerHTML = msg;
+              btn.disabled = true;
+              console.log('tom2 already used');
+            }else {
+              drumSet.ride = padId;
+              btn.disabled = false;
+              msg = `Pad id <strong> ${padId}</strong> selected, click next to confirm`;
+              display.innerHTML = msg;
+              console.log('made it to set ride');
             }
           break;
           // set up finished play drums 

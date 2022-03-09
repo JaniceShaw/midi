@@ -8,26 +8,27 @@
     <style>body{height: 100%; width: 100%; background-color:rgba(0, 0, 0, 0); font-family:Arial, Helvetica, sans-serif;}
         .display{display: inline-block; margin-right: 20px;}
         .colour{background-color: white; padding: 10px; font-size: 20px;display: inline-block;margin: 30px;}
-        .drums{border:solid 4px rgb(156, 206, 202); position: relative; height:180px; width: 220px; margin: 20px auto; border-radius: 20px; background-color: rgb(156, 206, 202);}
+        .drums{border:solid 16px rgb(156, 206, 202); position: relative; height:740px; width: 880px; margin: 20px auto; border-radius: 20px; background-color: rgb(156, 206, 202);}
         .drums div{
-            font-size: 10px;
+            font-size: 12px;
             color: grey;
             text-align: center; 
-            line-height: 50px;
-             height: 50px; 
-             width: 50px; 
+            line-height: 200px;
+             height: 200px; 
+             width: 200px; 
              border-radius: 50%; 
              border: solid 2px grey; 
              background-color: beige;
              position: absolute;
             }
-        .drums .highHat {background-color: lightgoldenrodyellow; border-color: orange; top:18px}
-        .drums .snare {top:70px; left:22px}
-        .drums .bass {height: 80px; width: 80px; bottom:0; left: 65px;} 
-        .drums .tom1 {height: 45px; width: 45px; left:55px; top:30px}
-        .drums .tom2 {left:105px; top:30px}
-        .drums .floorTom {height: 55px; width: 55px; right: 20px; bottom:50px}
-        .drums .crash{background-color: lightgoldenrodyellow; border-color: orange; height: 60px; width: 60px; top:0; right:0}
+        .drums .highHat {background-color: lightgoldenrodyellow; border-color: orange; top:172px; left:40px}
+        .drums .snare {top:360px; left:120px}
+        .drums .bass {height: 320px; width: 320px; bottom:0; left: 300px;} 
+        .drums .tom1 {height: 180px; width: 180px; left:250px; top:180px}
+        .drums .tom2 {left:450px; top:180px}
+        .drums .floorTom {height: 220px; width: 220px; right: 60px; bottom:180px}
+        .drums .ride{background-color: lightgoldenrodyellow; border-color: orange; height: 240px; width: 240px; top:20px; right:0}
+        .drums .crash{background-color: lightgoldenrodyellow; border-color: orange; height: 210px; width: 210px; top:0; left:110px}
         .drums div.active{border-color: greenyellow; background-color: lightgreen;}   
     </style>
 </head>
@@ -36,13 +37,14 @@
     <p>Set up for e-drums</p>
     <div class="display"></div><button>Start</button>
     <div class="drums">
-        <div class="highHat">high hat</div>
         <div class="snare">snare</div>
+        <div class="highHat">high hat</div>
         <div class="bass">bass</div>
         <div class="tom1">tom 1</div>
         <div class="tom2">tom 2</div>
         <div class="floorTom">floor tom</div>
         <div class="crash">crash</div>
+        <div class="ride">ride</div>
     </div>
 
     <script src="./example-7.js"></script>
