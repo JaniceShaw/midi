@@ -63,6 +63,41 @@ const fourFloor = {
     level:1,
 }
 
+const rumble = {
+    crash:      [],
+    ride:       [
+                    [[1,3],[1,3],[1,3]],
+                    [[1,3],[1,3],[1,3]],
+                    [[1,3],[1,3],[1,3]],
+                    [[1,3],[1,3],[1,3]],
+              
+                ],
+    highHat:    [],
+    snare:      [
+                    [[0,9]],
+                    [[1,3],[0,3],[0,3]],
+                    [[0,9]],
+                    [[1,3],[0,3],[0,3]],
+                
+                ],
+                
+    bass:       [
+                    [[1,3],[0,3],[0,3]],
+                    [[0,9]],
+                    [[1,3],[0,3],[0,3]],
+                    [[0,3],[1,2],[1,2],[1,2]],
+                   
+                ],
+    floorTom:   [],
+    tom1:       [],
+    tom2:       [],
+
+    repeat:2,
+    name: "Rumble (triplets)",
+    bars: 4,
+    level:1,
+}
+
 const toPlay = (beat) =>{
     output += `<section><p class="title">${beat['name']}</p>`;
     const allDrums = {
@@ -84,7 +119,7 @@ const toPlay = (beat) =>{
             if(value.length > 0){
                 output += `<div class=${drum}>`;
                 for(let j = 0; j < value[i].length; j++){
-                    output += `<span ${value[i][j][0] ? null : 'class="rest"'} style="width:${20*value[i][j][1]}px"> </span>`; 
+                    output += `<span ${value[i][j][0] ? '':'class="rest"'} style="width:${20*value[i][j][1]}px"> </span>`; 
                 }
                 output += "</div>"
             }       
@@ -96,5 +131,6 @@ const toPlay = (beat) =>{
 
 // toPlay(tester);
 toPlay(fourFloor);
+toPlay(rumble);
 
 display.innerHTML = output;
