@@ -1,6 +1,5 @@
 const barsDisplay = document.querySelector(".bars");
 const display = document.querySelector(".display");
-
 let output = "";
 
 // 16 = whole note
@@ -11,7 +10,6 @@ let output = "";
 // 0.5 -- not going up to this -- thirty-second note -- (don't think i need this)
 // 1 bar must = 16
 // rests [0,] play note[1,]
-
 
 const tester = {
     snare:  [[[1,16]], [[1,8],[1,8]], [[1,4],[0,4],[1,4],[0,4]], [[1,2],[1,2],[1,2],[1,2],[1,2],[1,2],[1,2],[1,2]], [[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1]]],
