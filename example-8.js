@@ -148,7 +148,6 @@ const toPlay = (beat) =>{
         // }
 
 
-
         output += "</span>";
     }
 }
