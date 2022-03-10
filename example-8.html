@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midi - Example 8 Audio APi timing</title>
+    <style>
+        body{font-family: Arial, Helvetica, sans-serif;}
+        .display{background-color: beige; width:max-content; padding:10px; border-radius: 20px}
+        .display section{background-color: white; margin-bottom:40px; margin-top:20px;border: solid 2px black; width:max-content;;position: relative;}
+        .display section p.title{position: absolute; top:-33px; font-size: 14px;}
+        .display .bar{border-right: solid 2px black; height:100%; display: inline-block;}
+
+        .bar div span{display: inline-block; height:20px; width: 80px; background-color: rgb(206, 170, 149); border-right: solid 3px white; box-sizing: border-box;}
+        .bar div span:last-child{ border-right: none;}
+
+        div.snare span{ background-color: rgb(206, 170, 149)}
+        div.bass span{ background-color: rgb(156, 206, 149)}
+        div.highHat span{ background-color: rgb(226, 231, 145)}
+        div.crash span{ background-color: rgb(226, 99, 105)}
+        div span.rest{ background-color: rgb(223, 215, 215)}
+        ul li.bar div span {padding:5px; font-size: 14px; height: max-content;}
+    </style>
+</head>
+<body>
+    <h1>Example 8</h1>
+    <p>Drum pattern display</p>
+    <ul>
+        <li class="bar"><div class="crash"><span>crash</span></div></li>
+        <li class="bar"><div class="highHat"><span>High hat</span></div></li>
+        <li class="bar"><div class="snare"><span>Snare</span></div></li>
+        <li class="bar"><div class="bass"><span>Bass</span></div></li>
+    </ul>
+    <!-- <button>Enable sound to play</button> -->
+    <div class="bars"></div>
+    <div class="display"></div>
+    
+    <script src="./example-8.js"></script>
+</body>
+</html>
