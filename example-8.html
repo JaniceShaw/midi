@@ -16,11 +16,14 @@
         .bar div span:last-child{ border-right: none;}
 
         div.snare span{ background-color:rgb(156, 206, 149 )}
-        div.bass span{ background-color:rgb(206, 170, 149 )}
+        div.tom1 span{ background-color:rgb(166, 218, 196)}
+        div.tom2 span{ background-color:rgb(118, 204, 197)}
+        div.floorTom span{ background-color:rgb(131, 142, 204)}
+        div.bass span{ background-color:rgb(180, 149, 206)}
         div.highHat span{ background-color: rgb(226, 231, 145)}
         div.ride span{ background-color: rgb(231, 211, 145)}
         div.crash span{ background-color: rgb(226, 99, 105)}
-        div span.rest{ background-color: rgb(223, 215, 215)}
+        div span.rest{ background-color: rgb(236, 231, 231)}
         ul li.bar div span {padding:5px; font-size: 14px; height: max-content;}
     </style>
 </head>
@@ -28,14 +31,17 @@
     <h1>Example 8</h1>
     <p>Drum pattern display</p>
     <ul>
+        <li class="bar"><div><span class="rest">Rest</span></div></li>
         <li class="bar"><div class="crash"><span>Crash</span></div></li>
         <li class="bar"><div class="ride"><span>Ride</span></div></li>
         <li class="bar"><div class="highHat"><span>High hat</span></div></li>
+        <li class="bar"><div class="tom1"><span>Tom 1</span></div></li>
+        <li class="bar"><div class="tom2"><span>Tom 2</span></div></li>
         <li class="bar"><div class="snare"><span>Snare</span></div></li>
+        <li class="bar"><div class="floorTom"><span>Floor tom</span></div></li>
         <li class="bar"><div class="bass"><span>Bass</span></div></li>
     </ul>
-    <!-- <button>Enable sound to play</button> -->
-    <div class="bars"></div>
+
     <div class="display"></div>
     
     <script src="./example-8.js"></script>

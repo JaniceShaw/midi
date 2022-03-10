@@ -1,4 +1,3 @@
-const barsDisplay = document.querySelector(".bars");
 const display = document.querySelector(".display");
 let output = "";
 
@@ -61,6 +60,7 @@ const fourFloor = {
     repeat:2,
     name: "Four on the floor",
     bars: 4,
+    level:1,
 }
 
 const toPlay = (beat) =>{
@@ -69,16 +69,16 @@ const toPlay = (beat) =>{
         crash : beat['crash'],
         ride : beat['ride'],
         highHat : beat['highHat'],
-        snare : beat['snare'],
         tom1 : beat['tom1'],
         tom2 : beat['tom1'],
+        snare : beat['snare'],
         floorTom : beat['floorTom'],
         bass : beat['bass']
     }
 
     // looping over given bars
     for(let i = 0; i < beat.bars; i++){
-        output += "<span class='bar'>";
+        output += `<span class='bar'> <span>${i+1}</span>`;
         // loop over allDrums to display defined drums
         for (let [drum, value] of Object.entries(allDrums)) {
             if(value.length > 0){
@@ -94,7 +94,7 @@ const toPlay = (beat) =>{
     output += "</section>";
 }
 
-toPlay(tester);
+// toPlay(tester);
 toPlay(fourFloor);
 
 display.innerHTML = output;
