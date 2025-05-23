@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midi - Example 9</title>
+    <style>
+        #display{
+            background-color: blue;
+            width:80%;
+            padding:10px;
+            min-height:20px;
+            color: white;}
+        #midi-in{
+            background-color: green; color: white;padding: 10px;width:90%; margin-block: 10px;
+        }
+        #midi-out{background-color: red; color: white;;padding: 10px;width:90%;};
+
+         #log { white-space: pre-wrap; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>Example 1</h1>
+    <p>displays midi info but no sound.</p>
+    <div id ="midi-in"></div>
+    <div id ="midi-out"></div>
+    <ul id="display"></ul>
+    
+    <div id="log">Waiting for midi input...</div>
+    
+    <script src="./example-9.js"></script>
+</body>
+</html>
