@@ -11,8 +11,9 @@
         .display section{background-color: white; margin-bottom:40px; margin-top:20px;border: solid 2px black; width:max-content;;position: relative;}
         .display section p.title{position: absolute; top:-33px; font-size: 14px;}
         .display .bar{border-right: solid 2px black; height:100%; display: inline-block;}
+        .display .bar div {line-height: 20px; height: 23px;}
 
-        .bar div span{display: inline-block; height:20px; width: 80px; background-color: rgb(206, 170, 149); border-right: solid 3px white; box-sizing: border-box;}
+        .bar div span{display: inline-block; height:20px; width: 80px; font-size: 12px; text-align: center; background-color: rgb(206, 170, 149); border-right: solid 3px white; box-sizing: border-box;}
         .bar div span:last-child{ border-right: none;}
 
         div.snare span{ background-color:rgb(137, 206, 202)}
@@ -20,8 +21,9 @@
         div.tom2 span{ background-color:rgb(118, 204, 151)}
         div.floorTom span{ background-color:rgb(131, 150, 204)}
         div.bass span{ background-color:rgb(180, 149, 206)}
-        div.highHat span{ background-color: rgb(226, 231, 145)}
-        div.ride span{ background-color: rgb(231, 211, 145)}
+        div.highHatClosed span{ background-color: rgb(222, 226, 147)}
+        div.highHatOpen span{ background-color: rgb(226, 211, 147)}
+        div.ride span{ background-color: rgb(231, 179, 145)}
         div.crash span{ background-color: rgb(226, 99, 105)}
         div span.rest{ background-color: rgb(236, 231, 231)}
         ul li.bar div span {padding:5px; font-size: 14px; height: max-content;}
@@ -34,7 +36,8 @@
         <li class="bar"><div><span class="rest">Rest</span></div></li>
         <li class="bar"><div class="crash"><span>Crash</span></div></li>
         <li class="bar"><div class="ride"><span>Ride</span></div></li>
-        <li class="bar"><div class="highHat"><span>High hat</span></div></li>
+        <li class="bar"><div class="highHatOpen"><span>High hat open</span></div></li>
+        <li class="bar"><div class="highHatClosed"><span>High hat closed</span></div></li>
         <li class="bar"><div class="tom1"><span>Tom 1</span></div></li>
         <li class="bar"><div class="tom2"><span>Tom 2</span></div></li>
         <li class="bar"><div class="snare"><span>Snare</span></div></li>
