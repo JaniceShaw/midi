@@ -208,7 +208,7 @@ function onMIDIMessage(message) {
   }
   
   // setUp
-    if ((message.data[0] === 144 || message.data[0] === 153) && drumSet.setUp > 0 && message.data[2] > 0) { // change 144 to 153, - 137 is off - high-hat-foot = 185
+    if ((message.data[0] === 144 || message.data[0] === 145 || message.data[0] === 146 || message.data[0] === 147 || message.data[0] === 148 || message.data[0] === 149 || message.data[0] === 153) && drumSet.setUp > 0 && message.data[2] > 0) { // change 144 to 153, - 137 is off - high-hat-foot = 185
       
       console.log('0',message.data[0]);
       console.log('all', message);
@@ -340,10 +340,15 @@ function onMIDIMessage(message) {
       }
       
     }
-    //note off after setup -- drum note off is 137 / keyboard note off is 128
-    if(message.data[0] === 128 || message.data[0 ] === 137 || message.data[2] === 0){
+    //note off after setup -- drum note off is 137 / keyboard note off is 128 ... thats not quite right but i know why now!
+    //you will get a different number depending on the channel.
+    if(message.data[0] === 128 || message.data[0] === 129 || message.data[0] === 130 || message.data[0] === 131 || message.data[0] === 132 || message.data[0] === 133 || message.data[0 ] === 137 || message.data[2] === 0){
       // drum note off
       console.log('in note off', padId);
       StopPlayDrum(padId);
     }
  }
+//ch=144,128
+//ch2=145,129
+//ch3=146,130
+//ch4=147,131 etc..
