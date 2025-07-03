@@ -4,7 +4,7 @@ body {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1200px;
   margin: auto;
 }
 
@@ -15,29 +15,32 @@ h1 {
 h2 {
   margin: 0 0 10px 0;
   font-size: 1.2em;
+  width: 100%;
 }
 
 .midiDevices {
-  /* background-color: aliceblue;
-  padding: 20px;
+   background-color: aliceblue;
+ /* padding: 20px;
   border-radius: 10px;
-  display: inline-block;
-  border: solid 1px skyblue; */
+  display: inline-block; */
+
+  /* border: solid 1px skyblue; */
 }
 
 .midiDevices p {
   font-weight: bold;
   margin: 0 0 10px 0;
+    width: 100%;
 }
 
-.midiDevices ol {
+/* .midiDevices ol {
   margin-bottom: 20px;
   font-size: 90%;
 }
 
 .midiDevices li {
   margin-bottom: 5px;
-}
+} */
 
 .info {
   border: dashed 1px grey;
@@ -45,6 +48,16 @@ h2 {
   padding: 10px 20px;
   border-radius: 5px;
   display: inline-block;
+   display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap; 
+
+}
+
+.device{
+  border: solid 1px red;
+
 }
 
 .midiEvents {

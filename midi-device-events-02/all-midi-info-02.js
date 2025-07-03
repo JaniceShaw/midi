@@ -42,7 +42,8 @@ const getMidiInfo = () => {
 
 document.onload = getMidiInfo();
 
-// List all MIDI inputs and outputs //
+
+// List all MIDI inputs //
 const listInputsAndOutputs = (midiAccess) => {
 
     // Create a new div to hold the MIDI devices information and give it a class name of "info"
@@ -50,30 +51,30 @@ const listInputsAndOutputs = (midiAccess) => {
     midiDevicesList.className = 'info';
     midiDevices.appendChild(midiDevicesList);
     // Create paragraphs to hold the inputs and outputs information
-    const inputs = document.createElement("p");
-    const outputs = document.createElement("p");
-    midiDevicesList.appendChild(inputs);
-
-    // create a ordered list for inputs and outputs
-    const currentInputs = document.createElement("ol");
-    midiDevicesList.appendChild(currentInputs);
-    midiDevicesList.appendChild(outputs);
-    const currentOutputs = document.createElement("ol");
-    midiDevicesList.appendChild(currentOutputs);
+    const numInputs = document.createElement("p");
+    // const outputs = document.createElement("p");
+    midiDevicesList.appendChild(numInputs);
 
     console.log("midi raw", midiAccess);
 
     for (let entry of midiAccess.inputs) {
+
         const input = entry[1];
+
+        const currentInputs = document.createElement("div");
+        currentInputs.className = 'device';
+        currentInputs.id = input.id;
+        midiDevicesList.appendChild(currentInputs);
+
+
         // push to info object - inputs
         midiInfo.inputs.push({ id: input.id, name: input.name, manufacturer: input.manufacturer, state: input.state });
 
-        const newLi = document.createElement("li");
+
         const newContent = document.createTextNode(
-            `ID: ${input.id} | ${input.manufacturer} | ${input.name} | ${input.state}`
+            `${input.name}  (${input.manufacturer})`
         );
-        newLi.appendChild(newContent);
-        currentInputs.appendChild(newLi);
+        currentInputs.appendChild(newContent);
     }
 
 
@@ -83,17 +84,17 @@ const listInputsAndOutputs = (midiAccess) => {
         // push to info object - outputs
         midiInfo.outputs.push({ id: output.id, name: output.name, manufacturer: output.manufacturer, state: output.state });
 
-        const newLi = document.createElement("li");
-        const newContent = document.createTextNode(
-            `ID: ${output.id} | ${output.manufacturer} | ${output.name} | ${output.state}`
-        );
+        // const newLi = document.createElement("li");
+        // const newContent = document.createTextNode(
+        //     `ID: ${output.id} | ${output.manufacturer} | ${output.name} | ${output.state}`
+        // );
 
-        newLi.appendChild(newContent);
-        currentOutputs.appendChild(newLi);
+        // newLi.appendChild(newContent);
+        // currentOutputs.appendChild(newLi);
     }
 
-    inputs.innerText = `MIDI Inputs:  ${midiInfo.inputs.length}`;
-    outputs.innerText = `MIDI Outputs: ${midiInfo.outputs.length}`;
+    numInputs.innerText = `MIDI Inputs:  ${midiInfo.inputs.length}`;
+    // outputs.innerText = `MIDI Outputs: ${midiInfo.outputs.length}`;
 
 
 };
