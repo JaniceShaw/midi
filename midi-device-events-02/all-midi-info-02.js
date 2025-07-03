@@ -70,7 +70,7 @@ const listInputsAndOutputs = (midiAccess) => {
 
         const newLi = document.createElement("li");
         const newContent = document.createTextNode(
-            `ID: ${input.id} - ${input.manufacturer} - ${input.name} - ${input.state}`
+            `ID: ${input.id} | ${input.manufacturer} | ${input.name} | ${input.state}`
         );
         newLi.appendChild(newContent);
         currentInputs.appendChild(newLi);
@@ -85,7 +85,7 @@ const listInputsAndOutputs = (midiAccess) => {
 
         const newLi = document.createElement("li");
         const newContent = document.createTextNode(
-            `ID: ${output.id} - ${output.manufacturer} - ${output.name} - ${output.state}`
+            `ID: ${output.id} | ${output.manufacturer} | ${output.name} | ${output.state}`
         );
 
         newLi.appendChild(newContent);
@@ -94,17 +94,18 @@ const listInputsAndOutputs = (midiAccess) => {
 
     inputs.innerText = `MIDI Inputs:  ${midiInfo.inputs.length}`;
     outputs.innerText = `MIDI Outputs: ${midiInfo.outputs.length}`;
-    
+
 
 };
 
 function onMIDIMessage(event, device) {
-     console.log("midiInfo", midiInfo);
+    // console.log("midiInfo", midiInfo);
 
-   const newData = [device, decodeMIDIMessage(event.data)];
+    const newData = [device, decodeMIDIMessage(event.data)];
 
     midiInfo.events.push(newData)
-    
+    midiEvents.innerHTML = JSON.stringify(midiInfo.events);
+
     function decodeMIDIMessage([status, data1, data2]) {
         const messageTypeNibble = status & 0xF0;
         const channel = (status & 0x0F) + 1;
