@@ -1,6 +1,17 @@
 //  Handling MIDI Input (keypress etc.) //
-const onMIDIMessage = (event) => {
+let midi = null;  // global MIDIAccess object
+console.log("top here hello");
+
+
+// function onMIDISuccess(midiAccess) {
+//   console.log("MIDI ready!");
+//   midi = midiAccess;  // store in the global (in real usage, would probably keep in an object instance)
+
+onMIDIMessage = (event) => {
+  console.log("top here hello 2");
     const noteInfo = document.querySelector(".noteInfo");
+    console.log("hello",noteInfo);
+    
     
     console.log("all", event);
     const device = event.currentTarget;
