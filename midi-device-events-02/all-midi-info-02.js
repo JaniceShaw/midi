@@ -64,17 +64,22 @@ const listInputsAndOutputs = (midiAccess) => {
         const currentInputs = document.createElement("div");
         currentInputs.className = 'device';
         currentInputs.id = input.id;
+
+        const deviceName = document.createElement("span");
+        deviceName.className = 'device-name';
+        const newContent = document.createTextNode(
+            `${input.name}  (${input.manufacturer})`
+        );
+
+        currentInputs.appendChild(deviceName);
         midiDevicesList.appendChild(currentInputs);
 
 
         // push to info object - inputs
         midiInfo.inputs.push({ id: input.id, name: input.name, manufacturer: input.manufacturer, state: input.state });
 
-
-        const newContent = document.createTextNode(
-            `${input.name}  (${input.manufacturer})`
-        );
-        currentInputs.appendChild(newContent);
+        deviceName.appendChild(newContent);
+        currentInputs.appendChild(deviceName);
     }
 
 
@@ -83,29 +88,60 @@ const listInputsAndOutputs = (midiAccess) => {
 
         // push to info object - outputs
         midiInfo.outputs.push({ id: output.id, name: output.name, manufacturer: output.manufacturer, state: output.state });
-
-        // const newLi = document.createElement("li");
-        // const newContent = document.createTextNode(
-        //     `ID: ${output.id} | ${output.manufacturer} | ${output.name} | ${output.state}`
-        // );
-
-        // newLi.appendChild(newContent);
-        // currentOutputs.appendChild(newLi);
     }
 
     numInputs.innerText = `MIDI Inputs:  ${midiInfo.inputs.length}`;
     // outputs.innerText = `MIDI Outputs: ${midiInfo.outputs.length}`;
 
-
 };
 
-function onMIDIMessage(event, device) {
+function onMIDIMessage(event, device, id) {
     // console.log("midiInfo", midiInfo);
 
-    const newData = [device, decodeMIDIMessage(event.data)];
+    const newData = [id, device, decodeMIDIMessage(event.data)];
 
-    midiInfo.events.push(newData)
-    midiEvents.innerHTML = JSON.stringify(midiInfo.events);
+    midiInfo.events.push(newData);
+   // midiEvents.innerHTML = JSON.stringify(midiInfo.events);
+
+   // console.log("mi",midiInfo.events[0][0]);
+
+
+//display the events in html
+ //my attempt
+//    for (let event of midiInfo.events) {
+//         const midiEvent = document.createElement("div");
+//         midiEvent.className = 'midi-event';
+//         midiEvent.id = `midi-event-${midiInfo.events.length}`;
+
+//         const eventContent = document.createTextNode(
+//             `Device: ${event[1]} | Type: ${event[2].type} | Channel: ${event[2].channel} | Note: ${event[2].noteName} | Velocity: ${event[2].velocity}`
+//         );
+//         midiEvent.appendChild(eventContent);
+//         midiEvents.appendChild(midiEvent);
+
+//    }
+
+
+const container = document.createElement('div');
+
+    midiInfo.events.forEach(([id, name, info], index) => {
+      const deviceDiv = document.createElement('div');
+      deviceDiv.classList.add('device');
+      deviceDiv.innerHTML = `
+        <h3>Device ${index + 1}</h3>
+        <p><strong>ID:</strong> ${id}</p>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Info:</strong></p>
+        <pre>${JSON.stringify(info, null, 2)}</pre>
+      `;
+      container.appendChild(deviceDiv);
+        midiEvents.appendChild(container);
+    });
+
+   console.log("midi event object", midiInfo.events);
+   
+
+    
 
     function decodeMIDIMessage([status, data1, data2]) {
         const messageTypeNibble = status & 0xF0;
@@ -146,8 +182,9 @@ function onMIDIMessage(event, device) {
 function startLoggingMidiEvents(midiAccess) {
     midiAccess.inputs.forEach(function (entry) {
         const deviceName = entry.name; // or entry.manufacturer + ' ' + entry.name
+        const deviceId = entry.id; // Get the device ID if needed
         entry.onmidimessage = function (event) {
-            onMIDIMessage(event, deviceName);
+            onMIDIMessage(event, deviceName, deviceId);
         };
     });
 }

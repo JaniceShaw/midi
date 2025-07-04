@@ -1,9 +1,133 @@
+
+//table test code
+const controllableElements = [
+
+    {
+        type: "control",
+        channel: "1",
+        note: "60", //default value
+        noteName: "C4", //default value
+        velocity: "100", //default value
+
+    },
+    {
+        type: "control",
+        channel: "2",
+        note: "60", //default value
+        noteName: "C4", //default value
+        velocity: "127", //default value
+
+    }, {
+        type: "control",
+        channel: "3",
+        note: "60", //default value
+        noteName: "C4", //default value
+        velocity: "80", //default value
+
+    }, {
+        type: "control",
+        channel: "4",
+        note: "60", //default value
+        noteName: "C4", //default value
+        velocity: "127", //default value
+
+    },
+
+];
+
+
+function createTable() {
+
+    const midiDiv = document.querySelector(".midi-div");
+
+    //appends to midiDiv
+    const controlsTable = document.createElement("table");
+    //set up controller table
+    const trHead = document.createElement("tr");
+
+    //headers
+    //Type
+    const thType = document.createElement("th");
+    const thTypeNode = document.createTextNode("Type");
+    thType.appendChild(thTypeNode)
+    //Channel
+    const thCh = document.createElement("th");
+    const thChNode = document.createTextNode("Channel");
+    thCh.appendChild(thChNode);
+    //Note
+    const thNote = document.createElement("th");
+    const thNoteNode = document.createTextNode("Note");
+    thNote.appendChild(thNoteNode);
+    //NoteName
+    const thNoteName = document.createElement("th");
+    const thNoteNameNode = document.createTextNode("NoteName");
+    thNoteName.appendChild(thNoteNameNode);
+    //velocity
+    const thVel = document.createElement("th");
+    const thVelNode = document.createTextNode("Velocity");
+    thVel.appendChild(thVelNode);
+    //the row
+    midiDiv.appendChild(controlsTable).appendChild(trHead);
+
+    trHead.appendChild(thType);
+    trHead.appendChild(thCh);
+    trHead.appendChild(thNote);
+    trHead.appendChild(thNoteName);
+    trHead.appendChild(thVel);
+
+   
+}
+
+function fillTable(controllableElements) {
+
+     const controlsTable = document.querySelector(".midi-div table");
+    // make the table rows
+    for (let i = 0; i < controllableElements.length; i++) {
+        const tdType = document.createElement("td");
+        const tdCh = document.createElement("td");
+        const tdNote = document.createElement("td");
+        const tdNoteName = document.createElement("td");
+        const tdVol = document.createElement("td");
+
+        const tr = document.createElement("tr");
+
+        const tdTypeNode = document.createTextNode(controllableElements[i][1].type);
+        const tdChNode = document.createTextNode(controllableElements[i][1].channel);
+        const tdNoteNode = document.createTextNode(controllableElements[i][1].note);
+        const tdNoteNameNode = document.createTextNode(controllableElements[i][1].noteName);
+        const tdValueNode = document.createTextNode(controllableElements[i][1].velocity);
+        // const tdControlNode = document.createTextNode(controllableElements[i].controller === null ? "" : controllableElements[i].controller);
+        // const tdValueNode = document.createTextNode(controllableElements[i].value);
+
+        tdType.appendChild(tdTypeNode);
+        tdCh.appendChild(tdChNode);
+        tdNote.appendChild(tdNoteNode)
+        tdNoteName.appendChild(tdNoteNameNode);
+        tdVol.appendChild(tdValueNode);
+
+        tr.appendChild(tdType);
+        tr.appendChild(tdCh);
+        tr.appendChild(tdNote);
+        tr.appendChild(tdNoteName);
+        tr.appendChild(tdVol);
+
+        controlsTable.appendChild(tr)
+    }
+}
+
+
+//createTable(controllableElements);
+////
+
+// end table test code
+
+
+
+
 const midiDevices = document.querySelector(".midiDevices");
 const midiSupport = document.querySelector(".midiSupport");
 const midiEvents = document.querySelector(".midiEvents");
-
-// Object to hold MIDI information
-// This will be used to store inputs, outputs, and events
+createTable();
 const midiInfo = {
     inputs: [],
     outputs: [],
@@ -99,11 +223,13 @@ const listInputsAndOutputs = (midiAccess) => {
 };
 
 function onMIDIMessage(event, device) {
-    // console.log("midiInfo", midiInfo);
+    console.log("midiInfo", midiInfo);
 
     const newData = [device, decodeMIDIMessage(event.data)];
 
     midiInfo.events.push(newData)
+
+    
     midiEvents.innerHTML = JSON.stringify(midiInfo.events);
 
     function decodeMIDIMessage([status, data1, data2]) {
@@ -140,6 +266,8 @@ function onMIDIMessage(event, device) {
         const note = notes[noteNumber % 12];
         return `${note}${octave}`;
     }
+
+    fillTable(midiInfo.events);
 }
 
 function startLoggingMidiEvents(midiAccess) {
